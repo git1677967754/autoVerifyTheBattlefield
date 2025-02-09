@@ -1,7 +1,7 @@
-import numpy as np
 import pyautogui
 import time
 import cv2
+import pygetwindow
 
 
 def is_img_exist(shot_img_path, img_path):
@@ -27,10 +27,33 @@ def is_img_exist(shot_img_path, img_path):
     return max_val > threshold
 
 def keyboard_click(key = 'e', sleep_time = 1):
+    """
+    模拟键盘点击，附带延迟
+    :param key:
+    :param sleep_time:
+    :return:
+    """
     pyautogui.press(key)
     time.sleep(sleep_time)
 
 
 def myclick(x, y, button='left'):
+    """
+    模拟鼠标点击，先移动再点击，防止因未渲染而点击失败
+    :param x:
+    :param y:
+    :param button: 鼠标按键，默认左键
+    :return: None
+    """
     pyautogui.moveTo(x, y, duration=0.5)
     pyautogui.click(button=button)
+
+def bring_to_front(window_title):
+    """
+    将指定程序调至焦点
+    :param window_title: 程序的标题
+    """
+    # 获取指定程序窗口
+    window = pygetwindow.getWindowsWithTitle(window_title)
+    # 将窗口调至焦点
+    window[0].activate()
