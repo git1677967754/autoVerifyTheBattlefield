@@ -2,7 +2,7 @@ import pyautogui
 import time
 import cv2
 import pygetwindow
-
+import psutil
 
 def is_img_exist(shot_img_path, img_path):
     """
@@ -57,3 +57,22 @@ def bring_to_front(window_title):
     window = pygetwindow.getWindowsWithTitle(window_title)
     # 将窗口调至焦点
     window[0].activate()
+
+
+def kill_process_by_name(process_name):
+    """
+    根据进程名结束进程
+    :param process_name: 进程名
+    :return: None
+    """
+    for proc in psutil.process_iter(['pid', 'name']):
+        if proc.info['name'] == process_name:
+            print(f'kill {process_name}')
+            proc.kill()
+
+def on_key(event):
+    global exit_flag
+    if event.name == 'f8':
+        exit_flag = True
+        print("F8 key pressed, exiting program...")
+        exit()

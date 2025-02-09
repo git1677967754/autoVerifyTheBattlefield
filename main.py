@@ -8,13 +8,11 @@ import unit
 # 全局退出标志
 exit_flag = False
 
-def trigger(number):
+def trigger():
     """
-    触发器
-    :param number: 运行次数
-    :return: None
+    触发程序
+    :return:None
     """
-    start = 0
     while True:
         if exit_flag:
             exit()
@@ -33,11 +31,13 @@ def trigger(number):
             time.sleep(0.5)
             unit.myclick(1372, 762)
         elif unit.is_img_exist('./jietu/screenshot1.png', './img/6.jpeg'):
-            # 判断是否退出
+            # 一次验证战场结束
             unit.myclick(940, 960)
-            start += 1
-            if start == number:
-                exit()
+        elif unit.is_img_exist('./jietu/screenshot1.png', './img/7.jpeg'):
+            # 拟境次数已耗尽,退出脚本
+            # 可选，在运行结束后杀死游戏进程,'尘白禁区'的运行进程名默认为‘Game.exe’，请谨慎开启，存在误杀可能
+            # unit.kill_process_by_name('Game.exe')
+            exit()
         elif unit.is_img_exist('./jietu/screenshot1.png', './img/1.jpeg'):
             # 选择难度
             unit.myclick(1514, 513)
@@ -47,13 +47,11 @@ def trigger(number):
             unit.myclick(1752, 993)
             time.sleep(7)# 防止提前释放技能导致进入冷却
 
-def on_key(event):
-    global exit_flag
-    if event.name == 'f8':
-        exit_flag = True
-        print("F8 key pressed, exiting program...")
-        exit()
 
-keyboard.on_press(on_key)
-unit.bring_to_front('尘白禁区')
-trigger(17)
+keyboard.on_press(unit.on_key)
+try:
+    unit.bring_to_front('尘白禁区')
+except Exception as e:
+    print(e)
+    exit()
+trigger()
