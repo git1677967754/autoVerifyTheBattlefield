@@ -1,4 +1,3 @@
-import os
 import time
 
 import keyboard
@@ -6,6 +5,8 @@ import pyautogui
 
 import unit
 
+# 全局退出标志
+exit_flag = False
 
 def trigger(number):
     """
@@ -15,6 +16,8 @@ def trigger(number):
     """
     start = 0
     while True:
+        if exit_flag:
+            exit()
         pyautogui.screenshot().save('./jietu/screenshot1.png')
         if unit.is_img_exist('./jietu/screenshot1.png', './img/3.jpeg'):
             # 判断是否释放技能
@@ -44,6 +47,13 @@ def trigger(number):
             unit.myclick(1752, 993)
             time.sleep(7)# 防止提前释放技能导致进入冷却
 
+def on_key(event):
+    global exit_flag
+    if event.name == 'f8':
+        exit_flag = True
+        print("F8 key pressed, exiting program...")
+        exit()
 
+keyboard.on_press(on_key)
 unit.bring_to_front('尘白禁区')
-trigger(1)
+trigger(17)

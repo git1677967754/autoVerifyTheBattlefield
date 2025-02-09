@@ -11,6 +11,7 @@
    ![1](https://gitee.com/git1677967754/picture/raw/master/img/202502082239211.jpeg)
 
 4. 启动脚本即可
+5. 按F8可强制退出脚本
 
 ### 注意事项：
 需要用管理员权限启动pycharm，然后再运行脚本
