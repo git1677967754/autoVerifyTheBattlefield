@@ -47,8 +47,15 @@ def trigger():
             unit.myclick(1752, 993)
             time.sleep(7)# 防止提前释放技能导致进入冷却
 
+def on_key(event):
+    global exit_flag
+    if event.name == 'f8':
+        exit_flag = True
+        print("F8 key pressed, exiting program...")
+        exit()
 
-keyboard.on_press(unit.on_key)
+
+keyboard.on_press(on_key)
 try:
     unit.bring_to_front('尘白禁区')
 except Exception as e:

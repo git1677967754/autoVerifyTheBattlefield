@@ -70,9 +70,3 @@ def kill_process_by_name(process_name):
             print(f'kill {process_name}')
             proc.kill()
 
-def on_key(event):
-    global exit_flag
-    if event.name == 'f8':
-        exit_flag = True
-        print("F8 key pressed, exiting program...")
-        exit()
