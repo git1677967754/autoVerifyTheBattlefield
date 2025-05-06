@@ -13,6 +13,7 @@ def trigger():
     触发程序
     :return:None
     """
+    count = 0
     while True:
         if exit_flag:
             exit()
@@ -32,15 +33,18 @@ def trigger():
             unit.myclick(1372, 762)
         elif unit.is_img_exist('./jietu/screenshot1.png', './img/6.jpeg'):
             # 一次验证战场结束
+            count += 1
+            print(f'第 {count} 次验证战场结束')
             unit.myclick(940, 960)
-        elif unit.is_img_exist('./jietu/screenshot1.png', './img/7.jpeg'):
-            # 拟境次数已耗尽,退出脚本
-            # 可选，在运行结束后杀死游戏进程,'尘白禁区'的运行进程名默认为‘Game.exe’，请谨慎开启，存在误杀可能
-            # unit.kill_process_by_name('Game.exe')
-            exit()
         elif unit.is_img_exist('./jietu/screenshot1.png', './img/1.jpeg'):
             # 选择难度
-            unit.myclick(1514, 513)
+            unit.myclick(1514, 513, duration = 0.2)
+            pyautogui.screenshot().save('./jietu/screenshot2.png')
+            if unit.is_img_exist('./jietu/screenshot2.png', './img/7.jpeg'):
+                # 拟境次数已耗尽,退出脚本
+                # 可选，在运行结束后杀死游戏进程,'尘白禁区'的运行进程名默认为‘Game.exe’，请谨慎开启，存在误杀可能
+                unit.kill_process_by_name('Game.exe')
+                exit()
             time.sleep(0.2)
         elif unit.is_img_exist('./jietu/screenshot1.png', './img/2.jpeg'):
             # 选择角色
